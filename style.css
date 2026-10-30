@@ -1,0 +1,351 @@
+/* =========================================================
+   0. TOKEN — angka dari design system OGI
+   Di Figma namanya "space/4", di CSS jadi var(--space-4).
+   Ganti nilainya di sini, seluruh halaman ikut berubah.
+   ========================================================= */
+:root {
+  /* Warna (semantic) */
+  --color-bg-page: #FFFFFF;          /* latar halaman */
+  --color-bg-subtle: #F8FAFC;        /* latar section abu muda */
+  --color-bg-brand-subtle: #EEF2FF;  /* latar ungu muda */
+  --color-bg-inverse: #0F172A;       /* section gelap (CTA) */
+  --color-text-primary: #0F172A;     /* judul & isi utama */
+  --color-text-secondary: #64748B;   /* deskripsi, caption */
+  --color-text-brand: #4F46E5;       /* teks berwarna brand */
+  --color-text-inverse: #FFFFFF;     /* teks di latar gelap */
+  --color-border-default: #E2E8F0;   /* garis card & pemisah */
+  --color-action-primary: #4F46E5;   /* tombol utama */
+  --color-action-primary-hover: #4338CA;
+  --color-decor-light: #C7D2FE;      /* dekorasi ilustrasi */
+  --color-decor-strong: #A5B4FC;
+
+  /* Font */
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-semibold: 600;
+  --font-extrabold: 800;
+
+  /* Spacing (semua kelipatan 4) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;   /* tombol */
+  --radius-lg: 16px;   /* card */
+  --radius-xl: 24px;   /* card besar */
+  --radius-full: 9999px; /* lingkaran */
+
+  --text-bold: 800;
+}
+
+/* =========================================================
+   1. RESET & DASAR
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* padding & border dihitung ke dalam ukuran */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 26px;        /* Body MD = 16 / 26 */
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;                /* jarak diatur sendiri, bukan bawaan browser */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+}
+
+/* Wadah konten: 1200px di tengah halaman.
+   1248 = 1200 konten + 24 kiri + 24 kanan (jarak aman di layar kecil) */
+.container {
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== [1] HEADER =====
+   Catatan bedah:
+   - .header       : padding atas-bawah 16 (space-4), garis bawah 1px border-default
+   - .header-inner : flex, isi ke kiri-kanan (space-between), rata tengah vertikal
+   - .logo         : flex, gap 8 (space-2), Plus Jakarta Sans 18 ExtraBold (800)
+   - .nav          : flex, gap 32 (space-8), Inter 14 Medium (500), text-secondary
+   - .btn          : padding 12/24, radius-md (10), Inter 16/24 SemiBold (600), border 1px
+   - .btn-primary  : latar action-primary, teks putih
+   - .btn-sm       : padding 8/16, Inter 14/20
+*/
+.header {
+   padding: var(--space-4) 0;
+}
+
+.header-inner {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.logo {
+   display: flex;
+   align-items: center;
+   gap: var(--space-2);
+}
+
+.logo span {
+   font-weight: var(--text-bold);
+}
+
+nav {
+   display: flex;
+   gap: var(--space-8);
+   color: var(--color-text-secondary);
+   font-weight: var(--text-bold);
+}
+/* bentuk tombol ajah */
+.btn {
+   padding: var(--space-3) var(--space-6);
+   border-radius: var(--radius-md);
+   border: 1px solid transparent;
+}
+/* jenis warna tombol */
+.btn-primary {
+   background-color: var(--color-action-primary);
+   color: var(--color-text-inverse);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-action-primary-hover);
+  border-color: var(--color-action-primary-hover);
+}
+
+.btn-sm {
+   padding: 8px 16px;
+   font-family: var(--font-body);
+}
+
+/* ===== [2] HERO =====
+   Catatan bedah:
+   - .hero         : padding 80 atas (space-20), 64 bawah (space-16), teks rata tengah
+   - .overline     : Inter 12/16 SemiBold, huruf kapital, spasi huruf +8% (0.08em), text-brand, jarak bawah 12
+   - .hero-title   : Plus Jakarta Sans 40/48 ExtraBold, lebar maks 560, jarak bawah 16
+   - .hero-desc    : Body 16/26, text-secondary, lebar maks 480, jarak bawah 32
+   - .hero-actions : flex, rata tengah, gap 12
+   - .btn-outline  : latar putih, border border-default, teks text-primary
+   - .hero-visual  : flex rata tengah (dua arah), gap 24, lebar maks 960, tinggi 280,
+                     jarak atas 48, radius-xl (24), latar bg-brand-subtle
+   - .visual-box   : 160 x 120, radius-lg (16), latar decor-light
+   - .visual-box-main : 180 x 160, latar decor-strong
+*/
+
+.hero {
+   padding: var(--space-20)var(--space-16);
+   text-align: center;
+}
+
+.overline {
+   font-family: var(--font-body);
+   font-size: 12px;
+   line-height: 16px;
+   font-weight: var(--font-semibold);
+   text-transform: uppercase;
+   letter-spacing: 0.08em;
+   color: var(--color-text-brand);
+   margin-bottom: var(--space-3);
+}
+
+.hero-title {
+   font-family: var(--font-heading);
+   font-size: 40px;
+   line-height: 48px;
+   font-weight: var(--font-extrabold);
+   margin: 0 auto var(--space-4);
+   max-width: 560px;
+}
+
+.hero-desc {
+   font-family: var(--font-body);
+   font-size: 16px;
+   line-height: 26px;
+   color: var(--color-text-secondary);
+   max-width: 480px;
+   margin: 0 auto var(--space-8);
+}
+
+.hero-action {
+   display: flex;
+   justify-content: center;
+   gap: var(--space-3);
+}
+
+.btn-outline {
+   background-color: white;
+   border-color: var(--color-border-default);
+   color: var(--color-text-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-bg-subtle);
+}
+
+.hero-visual {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: var(--space-6);
+   max-width: 960px;
+   height: 280px;
+   margin: var(--space-12) auto 0;
+   border-radius: var(--radius-xl);
+   background-color: var(--color-bg-brand-subtle);
+}
+
+.visual-box {
+   width: 160px;
+   height: 120px;
+   border-radius: var(--radius-lg);
+   background-color: var(--color-decor-light);
+}
+
+.visual-box-main {
+   width: 180px;
+   height: 160px;
+   background-color: var(--color-decor-strong);
+}
+
+/* ===== [3] FITUR =====
+   Catatan bedah:
+   - .features      : padding atas-bawah 80, latar bg-subtle
+   - .section-title : Plus Jakarta Sans 32/40 Bold (700), rata tengah, jarak bawah 40
+   - .card-list     : flex, gap 20 (space-5)
+   - .card          : bagi rata (flex: 1), padding 24, border 1px border-default, radius-lg (16), latar putih
+   - .card-icon     : kotak 40 x 40, ikon di tengah (flex), radius-md, latar bg-brand-subtle, jarak bawah 16
+   - .card-title    : Plus Jakarta Sans 20/28 Bold, jarak bawah 8
+   - .card-desc     : Inter 14/22, text-secondary
+*/
+
+.features {
+   padding: var(--space-20) 0;
+   background-color: var(--color-bg-subtle);
+}
+
+.section-title {
+   margin-bottom: var(--space-10);
+   font-family: var(--font-heading);
+   font-size: 32px;
+   line-height: 40px;
+   text-align: center;
+   font-weight: 700;
+}
+
+.card-list {
+   display: flex;
+   gap: var(--space-5);
+}
+
+.card {
+   flex: 1;
+   padding: var(--space-6);
+   border: 1px solid var(--color-border-default);
+   border-radius: var(--radius-lg);
+   background-color: white;
+}
+
+.card-icon {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 40px;
+   height: 40px;
+   border-radius: var(--radius-md);
+   background-color: var(--color-bg-brand-subtle);
+   margin-bottom: var(--space-4);
+}
+
+.card-title {
+   font-family: var(--font-heading);
+   font-size: 20px;
+   line-height: 28px;
+   font-weight: var(--text-bold);
+   margin-bottom: var(--space-2);
+}
+
+.card-desc {
+   font-family: var(--font-body);
+   font-size: 14px;
+   line-height: 22px;
+   color: var(--color-text-secondary);
+}
+/* ===== [4] CTA =====
+   Catatan bedah:
+   - .cta        : padding atas-bawah 48, latar bg-inverse
+   - .cta-inner  : flex, space-between, rata tengah vertikal
+   - .cta-title  : Plus Jakarta Sans 24/32 Bold, text-inverse
+   - .btn-light  : latar putih, teks text-brand
+*/
+
+.cta  {
+   padding: var(--space-16) 0;
+   background-color: var(--color-bg-inverse);
+}
+
+.cta-inner {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.cta-title {
+   font-family: var(--font-heading);
+   font-size: 24px;
+   line-height: 32px;
+   font-weight: bold;
+   color: var(--color-text-inverse);
+}
+
+.btn-light {
+   background-color: white;
+   color: var(--color-text-brand);
+}
+/* ===== [5] FOOTER =====
+   Catatan bedah:
+   - .footer       : padding atas-bawah 24
+   - .footer-inner : flex, space-between, Inter 12/18, text-secondary
+*/
+
+.footer {
+   padding: var(--space-12) 0;
+}
+
+.footer-inner {
+   display: flex;
+   justify-content: space-between;
+   font-family: var(--font-body);
+   font-size: 12px;
+   line-height: 18px;
+   color: var(--color-text-secondary);
+}
